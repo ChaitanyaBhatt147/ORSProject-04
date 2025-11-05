@@ -1,6 +1,6 @@
 package in.co.rays.proj4.bean;
 
-public class RoleBean {
+public class RoleBean extends BaseBean{
 	private String name;
 
 	public String getName() {
