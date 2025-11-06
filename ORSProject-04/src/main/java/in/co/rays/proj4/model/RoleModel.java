@@ -7,6 +7,7 @@ import java.util.List;
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class RoleModel {
@@ -31,9 +32,14 @@ public class RoleModel {
 		return pk + 1;
 	}
 
-	public long add(RoleBean bean) throws DatabaseException, ApplicationException {
+	public long add(RoleBean bean) throws DatabaseException, ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
+		
+		RoleBean existBRole = findByName(bean.getName());
+		if (existBRole != null) {
+			throw new DuplicateRecordException("Role already exists");
+		}
 
 		try {
 			pk = nextPk();
@@ -85,8 +91,15 @@ public class RoleModel {
 		}
 	}
 
-	public void update(RoleBean bean) throws ApplicationException {
+	public void update(RoleBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		RoleBean existBRole = findByName(bean.getName());
+
+		if (existBRole != null && existBRole.getId() != bean.getId()) {
+			throw new DuplicateRecordException("Role already exists");
+		}
+
+		
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);

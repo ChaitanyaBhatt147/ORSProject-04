@@ -9,19 +9,20 @@ import java.util.List;
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.RoleModel;
 
 public class TestRoleModel {
 	public static void main(String[] args) {
-//		System.out.println(testNextPk());
-//		testAdd();
+		System.out.println(testNextPk());
+		testAdd();
 //		System.out.println(testNextPk());
 //		testDelete();
 //		testUpdate();
 //		testFindByPk();
 //		testFindByName();
 //		testSearch();
-		testList();
+//		testList();
 	}
 
 	public static int testNextPk() {
@@ -39,8 +40,8 @@ public class TestRoleModel {
 		RoleModel model = new RoleModel();
 		try {
 			RoleBean bean = new RoleBean();
-			bean.setName("student");
-			bean.setDescription("student");
+			bean.setName("kiosk");
+			bean.setDescription("kiosk");
 			bean.setCreatedBy("admin");
 			bean.setModifiedBy("admin");
 			bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
@@ -53,7 +54,7 @@ public class TestRoleModel {
 				e.printStackTrace();
 			}
 
-		} catch (ApplicationException e) {
+		} catch (ApplicationException | DuplicateRecordException e) {
 			e.printStackTrace();
 		}
 	}
@@ -74,23 +75,18 @@ public class TestRoleModel {
 	public static void testUpdate() {
 		RoleModel model = new RoleModel();
 
-		RoleBean bean = new RoleBean();
-		bean.setName("hr");
-		bean.setDescription("student");
-		bean.setCreatedBy("admin");
-		bean.setModifiedBy("admin");
-		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
-		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		bean.setId(2);
+		RoleBean bean;
 		try {
+			bean = model.findByPk(2L);
+			bean.setName("hr");
 			model.update(bean);
-		} catch (ApplicationException e) {
+		} catch (ApplicationException | DuplicateRecordException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("role updated successfully");
 	}
-	
+
 	public static void testFindByPk() {
 		RoleModel model = new RoleModel();
 
@@ -98,16 +94,16 @@ public class TestRoleModel {
 			RoleBean bean = model.findByPk(1);
 			if (bean == null) {
 				System.out.println("Test Find By PK fail");
-			} 
-			System.out.println("Id : "+ bean.getId());
-			System.out.println("Name : "+ bean.getName());
-			System.out.println("Description : "+ bean.getDescription());
+			}
+			System.out.println("Id : " + bean.getId());
+			System.out.println("Name : " + bean.getName());
+			System.out.println("Description : " + bean.getDescription());
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
-	
+
 	public static void testFindByName() {
 		RoleModel model = new RoleModel();
 
@@ -115,15 +111,15 @@ public class TestRoleModel {
 			RoleBean bean = model.findByName("student");
 			if (bean == null) {
 				System.out.println("Test Find By PK fail");
-			} 
-			System.out.println("Id : "+ bean.getId());
-			System.out.println("Name : "+ bean.getName());
-			System.out.println("Description : "+ bean.getDescription());
+			}
+			System.out.println("Id : " + bean.getId());
+			System.out.println("Name : " + bean.getName());
+			System.out.println("Description : " + bean.getDescription());
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
-	
+
 	public static void testSearch() {
 		RoleModel model = new RoleModel();
 		try {
@@ -145,7 +141,7 @@ public class TestRoleModel {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void testList() {
 		RoleModel model = new RoleModel();
 		try {

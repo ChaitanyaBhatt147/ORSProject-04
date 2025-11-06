@@ -1,9 +1,11 @@
 package in.co.rays.proj4.bean;
 
-public class CollegeBean {
+public class CollegeBean extends BaseBean{
 	private String name;
 	private String address;
 	private String state;
+	private String city;
+	private String phoneNo;
 
 	public String getName() {
 		return name;
@@ -44,7 +46,4 @@ public class CollegeBean {
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
-
-	private String city;
-	private String phoneNo;
 }
