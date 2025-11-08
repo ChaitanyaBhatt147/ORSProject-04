@@ -1,8 +1,10 @@
 package in.co.rays.proj4.bean;
 
-public class SubjectBean {
+public class SubjectBean extends BaseBean{
 	private String name;
 	private long courseId;
+	private String courseName;
+	private String description;
 
 	public String getName() {
 		return name;
@@ -36,6 +38,4 @@ public class SubjectBean {
 		this.description = description;
 	}
 
-	private String courseName;
-	private String description;
 }

@@ -1,7 +1,9 @@
 package in.co.rays.proj4.bean;
 
-public class CourseBean {
+public class CourseBean extends BaseBean{
 	private String name;
+	private String duration;
+	private String description;
 
 	public String getName() {
 		return name;
@@ -27,6 +29,4 @@ public class CourseBean {
 		this.description = description;
 	}
 
-	private String duration;
-	private String description;
 }
