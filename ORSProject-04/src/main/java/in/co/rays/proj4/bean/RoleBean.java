@@ -20,4 +20,14 @@ public class RoleBean extends BaseBean{
 	}
 
 	private String description;
+
+	@Override
+	public String getKey() {
+		return id + "";
+	}
+
+	@Override
+	public String getValue() {
+		return name;
+	}
 }

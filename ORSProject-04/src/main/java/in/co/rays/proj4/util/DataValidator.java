@@ -223,7 +223,7 @@ public class DataValidator {
 
 		// Test isSunday
 		System.out.println("\nisSunday Test:");
-		System.out.println("Date on Sunday: '10/13/2024' -> " + isSunday("10/13/2024"));
-		System.out.println("Date not on Sunday: '10/15/2024' -> " + isSunday("10/15/2024"));
+		System.out.println("Date on Sunday: '09/11/2025' -> " + isSunday("09-11-2025"));
+		System.out.println("Date not on Sunday: '10/11/2025' -> " + isSunday("10-11-2025"));
 	}
 }
