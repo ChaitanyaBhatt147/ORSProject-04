@@ -12,10 +12,10 @@ import in.co.rays.proj4.bean.TimetableBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
-import in.co.rays.proj4.model.TimeTableModel;
+import in.co.rays.proj4.model.TimetableModel;
 
 public class TestTimetableModel {
-	static TimeTableModel model = new TimeTableModel();
+	static TimetableModel model = new TimetableModel();
 	static TimetableBean bean;
 
 	public static void main(String[] args) {

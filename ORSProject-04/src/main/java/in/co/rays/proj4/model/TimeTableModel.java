@@ -15,7 +15,8 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
-public class TimeTableModel {
+public class TimetableModel {
+
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
