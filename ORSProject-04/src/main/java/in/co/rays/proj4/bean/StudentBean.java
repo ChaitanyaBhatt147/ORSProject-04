@@ -2,88 +2,203 @@ package in.co.rays.proj4.bean;
 
 import java.util.Date;
 
-public class StudentBean extends BaseBean{
-	private String firstName;
-	private String lastName;
-	private Date dob;
+/**
+ * StudentBean represents student information within the system.
+ * It includes personal details such as name, date of birth, gender,
+ * and contact information, along with associated college details.
+ * This class extends {@link BaseBean} to include common audit fields.
+ *
+ * author Chaitanya Bhatt
+ * @version 1.0
+ */
+public class StudentBean extends BaseBean {
 
-	public String getFirstName() {
-		return firstName;
-	}
+    /** First name of the student. */
+    private String firstName;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /** Last name of the student. */
+    private String lastName;
 
-	public String getLastName() {
-		return lastName;
-	}
+    /** Date of birth of the student. */
+    private Date dob;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /** Gender of the student. */
+    private String gender;
 
-	public Date getDob() {
-		return dob;
-	}
+    /** Mobile number of the student. */
+    private String mobileNo;
 
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+    /** Email address of the student. */
+    private String email;
 
-	public String getGender() {
-		return gender;
-	}
+    /** ID of the associated college. */
+    private long collegeId;
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    /** Name of the associated college. */
+    private String collegeName;
 
-	public String getMobileNo() {
-		return mobileNo;
-	}
+    /**
+     * Gets the first name of the student.
+     *
+     * @return firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
+    /**
+     * Sets the first name of the student.
+     *
+     * @param firstName the first name
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Gets the last name of the student.
+     *
+     * @return lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Sets the last name of the student.
+     *
+     * @param lastName the last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public long getCollegeId() {
-		return collegeId;
-	}
+    /**
+     * Gets the date of birth of the student.
+     *
+     * @return dob
+     */
+    public Date getDob() {
+        return dob;
+    }
 
-	public void setCollegeId(long collegeId) {
-		this.collegeId = collegeId;
-	}
+    /**
+     * Sets the date of birth of the student.
+     *
+     * @param dob the date of birth
+     */
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
 
-	public String getCollegeName() {
-		return collegeName;
-	}
+    /**
+     * Gets the gender of the student.
+     *
+     * @return gender
+     */
+    public String getGender() {
+        return gender;
+    }
 
-	public void setCollegeName(String collegeName) {
-		this.collegeName = collegeName;
-	}
+    /**
+     * Sets the gender of the student.
+     *
+     * @param gender the gender
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	private String gender;
-	private String mobileNo;
-	private String email;
-	private long collegeId;
-	private String collegeName;
+    /**
+     * Gets the mobile number of the student.
+     *
+     * @return mobileNo
+     */
+    public String getMobileNo() {
+        return mobileNo;
+    }
 
-	@Override
-	public String getKey() {
-		return id + "";
-	}
+    /**
+     * Sets the mobile number of the student.
+     *
+     * @param mobileNo the mobile number
+     */
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
 
-	@Override
-	public String getValue() {
-		return firstName + " " + lastName;
-	}
+    /**
+     * Gets the email address of the student.
+     *
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets the email address of the student.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Gets the associated college ID.
+     *
+     * @return collegeId
+     */
+    public long getCollegeId() {
+        return collegeId;
+    }
+
+    /**
+     * Sets the associated college ID.
+     *
+     * @param collegeId the college ID
+     */
+    public void setCollegeId(long collegeId) {
+        this.collegeId = collegeId;
+    }
+
+    /**
+     * Gets the associated college name.
+     *
+     * @return collegeName
+     */
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    /**
+     * Sets the associated college name.
+     *
+     * @param collegeName the college name
+     */
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    /**
+     * Returns the unique key (ID) as a string.
+     *
+     * @return the key
+     */
+    @Override
+    public String getKey() {
+        return id + "";
+    }
+
+    /**
+     * Returns the display value of the student,
+     * typically the full name.
+     *
+     * @return firstName + " " + lastName
+     */
+    @Override
+    public String getValue() {
+        return firstName + " " + lastName;
+    }
 }

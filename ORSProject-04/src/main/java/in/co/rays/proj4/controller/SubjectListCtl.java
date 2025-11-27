@@ -17,153 +17,204 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "SubjectListCtl", urlPatterns = { "/SubjectListCtl" })
+/**
+ * SubjectListCtl handles listing, searching, pagination and bulk actions for
+ * Subject entities. It preloads subject and course lists for the view,
+ * populates {@link SubjectBean} from request parameters, delegates search/delete
+ * operations to {@link SubjectModel}, and prepares pagination metadata for the view.
+ * <p>
+ * Supported operations include Search, Next, Previous, New, Delete, Reset and Back.
+ * </p>
+ * 
+ * @author Chaitanya Bhatt
+ * @version 1.0
+ * @see in.co.rays.proj4.model.SubjectModel
+ * @see in.co.rays.proj4.bean.SubjectBean
+ */
+@WebServlet(name = "SubjectListCtl", urlPatterns = { "/ctl/SubjectListCtl" })
 public class SubjectListCtl extends BaseCtl {
 
-	@Override
-	protected void preload(HttpServletRequest request) {
+    /**
+     * Preloads subject and course lists and sets them as request attributes
+     * ("subjectList", "courseList") for dropdowns or auxiliary displays in the view.
+     *
+     * @param request the {@link HttpServletRequest}
+     */
+    @Override
+    protected void preload(HttpServletRequest request) {
 
-		SubjectModel subjectModel = new SubjectModel();
-		CourseModel courseModel = new CourseModel();
+        SubjectModel subjectModel = new SubjectModel();
+        CourseModel courseModel = new CourseModel();
 
-		try {
-			List subjectList = subjectModel.list();
-			request.setAttribute("subjectList", subjectList);
+        try {
+            List subjectList = subjectModel.list();
+            request.setAttribute("subjectList", subjectList);
 
-			List courseList = courseModel.list();
-			request.setAttribute("courseList", courseList);
+            List courseList = courseModel.list();
+            request.setAttribute("courseList", courseList);
 
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	protected BaseBean populateBean(HttpServletRequest request) {
+    /**
+     * Populates a {@link SubjectBean} from request parameters for use in search
+     * or other operations.
+     *
+     * @param request the {@link HttpServletRequest} containing parameters
+     * @return populated {@link BaseBean} (actually a {@link SubjectBean})
+     */
+    @Override
+    protected BaseBean populateBean(HttpServletRequest request) {
 
-		SubjectBean bean = new SubjectBean();
+        SubjectBean bean = new SubjectBean();
 
-		bean.setName(DataUtility.getString(request.getParameter("name")));
-		bean.setCourseName(DataUtility.getString(request.getParameter("courseName")));
-		bean.setDescription(DataUtility.getString(request.getParameter("description")));
-		bean.setCourseId(DataUtility.getLong(request.getParameter("courseId")));
-		bean.setId(DataUtility.getLong(request.getParameter("subjectId")));
+        bean.setName(DataUtility.getString(request.getParameter("name")));
+        bean.setCourseName(DataUtility.getString(request.getParameter("courseName")));
+        bean.setDescription(DataUtility.getString(request.getParameter("description")));
+        bean.setCourseId(DataUtility.getLong(request.getParameter("courseId")));
+        bean.setId(DataUtility.getLong(request.getParameter("subjectId")));
 
-		return bean;
-	}
+        return bean;
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    /**
+     * Handles HTTP GET requests. Performs an initial search and forwards the
+     * result list to the view. If no records are found, an error message is set.
+     *
+     * @param request  the {@link HttpServletRequest}
+     * @param response the {@link HttpServletResponse}
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		int pageNo = 1;
-		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
+        int pageNo = 1;
+        int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		SubjectBean bean = (SubjectBean) populateBean(request);
-		SubjectModel model = new SubjectModel();
+        SubjectBean bean = (SubjectBean) populateBean(request);
+        SubjectModel model = new SubjectModel();
 
-		try {
-			List<SubjectBean> list = model.search(bean, pageNo, pageSize);
-			List<SubjectBean> next = model.search(bean, pageNo + 1, pageSize);
+        try {
+            List<SubjectBean> list = model.search(bean, pageNo, pageSize);
+            List<SubjectBean> next = model.search(bean, pageNo + 1, pageSize);
 
-			if (list == null || list.isEmpty()) {
-				ServletUtility.setErrorMessage("No record found", request);
-			}
+            if (list == null || list.isEmpty()) {
+                ServletUtility.setErrorMessage("No record found", request);
+            }
 
-			ServletUtility.setList(list, request);
-			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
+            ServletUtility.setList(list, request);
+            ServletUtility.setPageNo(pageNo, request);
+            ServletUtility.setPageSize(pageSize, request);
+            ServletUtility.setBean(bean, request);
+            request.setAttribute("nextListSize", next.size());
 
-			ServletUtility.forward(getView(), request, response);
+            ServletUtility.forward(getView(), request, response);
 
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-			ServletUtility.handleException(e, request, response);
-			return;
-		}
-	}
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+            ServletUtility.handleException(e, request, response);
+            return;
+        }
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    /**
+     * Handles HTTP POST requests for search, pagination, new, delete, reset and back
+     * operations. After performing the requested operation it forwards the updated
+     * list and pagination metadata to the view.
+     *
+     * @param request  the {@link HttpServletRequest}
+     * @param response the {@link HttpServletResponse}
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		List list = null;
-		List next = null;
+        List list = null;
+        List next = null;
 
-		int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
-		int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
+        int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
+        int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
 
-		pageNo = (pageNo == 0) ? 1 : pageNo;
-		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
+        pageNo = (pageNo == 0) ? 1 : pageNo;
+        pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		SubjectBean bean = (SubjectBean) populateBean(request);
-		SubjectModel model = new SubjectModel();
+        SubjectBean bean = (SubjectBean) populateBean(request);
+        SubjectModel model = new SubjectModel();
 
-		String op = DataUtility.getString(request.getParameter("operation"));
-		String[] ids = request.getParameterValues("ids");
+        String op = DataUtility.getString(request.getParameter("operation"));
+        String[] ids = request.getParameterValues("ids");
 
-		try {
+        try {
 
-			if (OP_SEARCH.equalsIgnoreCase(op) || "Next".equalsIgnoreCase(op) || "Previous".equalsIgnoreCase(op)) {
+            if (OP_SEARCH.equalsIgnoreCase(op) || "Next".equalsIgnoreCase(op) || "Previous".equalsIgnoreCase(op)) {
 
-				if (OP_SEARCH.equalsIgnoreCase(op)) {
-					pageNo = 1;
-				} else if (OP_NEXT.equalsIgnoreCase(op)) {
-					pageNo++;
-				} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
-					pageNo--;
-				}
+                if (OP_SEARCH.equalsIgnoreCase(op)) {
+                    pageNo = 1;
+                } else if (OP_NEXT.equalsIgnoreCase(op)) {
+                    pageNo++;
+                } else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
+                    pageNo--;
+                }
 
-			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SUBJECT_CTL, request, response);
-				return;
+            } else if (OP_NEW.equalsIgnoreCase(op)) {
+                ServletUtility.redirect(ORSView.SUBJECT_CTL, request, response);
+                return;
 
-			} else if (OP_DELETE.equalsIgnoreCase(op)) {
-				pageNo = 1;
-				if (ids != null && ids.length > 0) {
-					SubjectBean deletebean = new SubjectBean();
-					for (String id : ids) {
-						deletebean.setId(DataUtility.getInt(id));
-						model.delete(deletebean);
-						ServletUtility.setSuccessMessage("Data is deleted successfully", request);
-					}
-				} else {
-					ServletUtility.setErrorMessage("Select at least one record", request);
-				}
+            } else if (OP_DELETE.equalsIgnoreCase(op)) {
+                pageNo = 1;
+                if (ids != null && ids.length > 0) {
+                    SubjectBean deletebean = new SubjectBean();
+                    for (String id : ids) {
+                        deletebean.setId(DataUtility.getInt(id));
+                        model.delete(deletebean);
+                        ServletUtility.setSuccessMessage("Data is deleted successfully", request);
+                    }
+                } else {
+                    ServletUtility.setErrorMessage("Select at least one record", request);
+                }
 
-			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
-				return;
+            } else if (OP_RESET.equalsIgnoreCase(op)) {
+                ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
+                return;
 
-			} else if (OP_BACK.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
-				return;
-			}
+            } else if (OP_BACK.equalsIgnoreCase(op)) {
+                ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
+                return;
+            }
 
-			list = model.search(bean, pageNo, pageSize);
-			next = model.search(bean, pageNo + 1, pageSize);
+            list = model.search(bean, pageNo, pageSize);
+            next = model.search(bean, pageNo + 1, pageSize);
 
-			if (list == null || list.size() == 0) {
-				ServletUtility.setErrorMessage("No record found ", request);
-			}
+            if (list == null || list.size() == 0) {
+                ServletUtility.setErrorMessage("No record found ", request);
+            }
 
-			ServletUtility.setList(list, request);
-			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
+            ServletUtility.setList(list, request);
+            ServletUtility.setPageNo(pageNo, request);
+            ServletUtility.setPageSize(pageSize, request);
+            ServletUtility.setBean(bean, request);
+            request.setAttribute("nextListSize", next.size());
 
-			ServletUtility.forward(getView(), request, response);
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-			ServletUtility.handleException(e, request, response);
-			return;
-		}
-	}
+            ServletUtility.forward(getView(), request, response);
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+            ServletUtility.handleException(e, request, response);
+            return;
+        }
+    }
 
-	@Override
-	protected String getView() {
-		return ORSView.SUBJECT_LIST_VIEW;
-	}
+    /**
+     * Returns the JSP view path for the subject list.
+     *
+     * @return view page path as {@link String}
+     */
+    @Override
+    protected String getView() {
+        return ORSView.SUBJECT_LIST_VIEW;
+    }
 }

@@ -1,4 +1,3 @@
-
 package in.co.rays.proj4.controller;
 
 import java.io.IOException;
@@ -19,9 +18,29 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "TimetableListCtl", urlPatterns = { "/TimetableListCtl" })
+/**
+ * TimetableListCtl handles listing, searching, pagination and bulk actions for
+ * Timetable entities. It preloads subject and course lists for the view,
+ * populates {@link TimetableBean} from request parameters, delegates search/delete
+ * operations to {@link TimetableModel}, and prepares pagination metadata for the view.
+ * <p>
+ * Supported operations include Search, Next, Previous, New, Delete, Reset and Back.
+ * </p>
+ * 
+ * @author Chaitanya Bhatt
+ * @version 1.0
+ * @see in.co.rays.proj4.model.TimetableModel
+ * @see in.co.rays.proj4.bean.TimetableBean
+ */
+@WebServlet(name = "TimetableListCtl", urlPatterns = { "/ctl/TimetableListCtl" })
 public class TimetableListCtl extends BaseCtl {
 
+	/**
+	 * Preloads subject and course lists into request attributes for rendering
+	 * dropdowns on the timetable list page.
+	 *
+	 * @param request the {@link HttpServletRequest}
+	 */
 	@Override
 	protected void preload(HttpServletRequest request) {
 
@@ -40,6 +59,13 @@ public class TimetableListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Populates a {@link TimetableBean} from request parameters for use in search
+	 * or other operations.
+	 *
+	 * @param request the {@link HttpServletRequest} containing parameters
+	 * @return populated {@link BaseBean} (actually a {@link TimetableBean})
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -52,6 +78,15 @@ public class TimetableListCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests. Performs an initial search and forwards the
+	 * result list to the view. If no records are found, an error message is set.
+	 *
+	 * @param request  the {@link HttpServletRequest}
+	 * @param response the {@link HttpServletResponse}
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -84,6 +119,16 @@ public class TimetableListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Handles HTTP POST requests for search, pagination, new, delete, reset and back
+	 * operations. After performing the requested operation it forwards the updated
+	 * list and pagination metadata to the view.
+	 *
+	 * @param request  the {@link HttpServletRequest}
+	 * @param response the {@link HttpServletResponse}
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -162,6 +207,11 @@ public class TimetableListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Returns the JSP view path for the timetable list.
+	 *
+	 * @return view page path as {@link String}
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.TIMETABLE_LIST_VIEW;

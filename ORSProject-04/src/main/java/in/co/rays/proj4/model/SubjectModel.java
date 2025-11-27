@@ -13,7 +13,26 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * SubjectModel provides CRUD and search operations for SubjectBean,
+ * interacting with the {@code st_subject} table via JDBC.
+ *
+ * <p>
+ * This class throws project-specific exceptions (ApplicationException,
+ * DatabaseException, DuplicateRecordException) to indicate failure
+ * conditions.
+ * </p>
+ *
+ * @author Chaitanya Bhatt
+ * @version 1.0
+ */
 public class SubjectModel {
+	/**
+	 * Returns next primary key value for st_subject table.
+	 *
+	 * @return next primary key (Integer)
+	 * @throws DatabaseException if a database access error occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -34,6 +53,14 @@ public class SubjectModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds a new subject record into database.
+	 *
+	 * @param bean SubjectBean containing subject data to add
+	 * @return primary key of newly inserted subject
+	 * @throws ApplicationException     if any SQL exception occurs while adding subject
+	 * @throws DuplicateRecordException if a subject with same name already exists
+	 */
 	public long add(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
@@ -78,6 +105,12 @@ public class SubjectModel {
 		return pk;
 	}
 
+	/**
+	 * Updates an existing subject record.
+	 *
+	 * @param bean SubjectBean containing updated values (must include id)
+	 * @throws ApplicationException if a SQL error occurs while updating
+	 */
 	public void update(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		CourseModel courseModel = new CourseModel();
@@ -113,6 +146,12 @@ public class SubjectModel {
 		}
 	}
 
+	/**
+	 * Deletes a subject record from database.
+	 *
+	 * @param bean SubjectBean containing id of subject to delete
+	 * @throws ApplicationException if a SQL error occurs during delete
+	 */
 	public void delete(SubjectBean bean) throws ApplicationException {
 		Connection conn = null;
 		try {
@@ -135,6 +174,13 @@ public class SubjectModel {
 		}
 	}
 
+	/**
+	 * Finds a subject by primary key.
+	 *
+	 * @param pk primary key of subject
+	 * @return SubjectBean if found, otherwise null
+	 * @throws ApplicationException if a SQL error occurs while fetching data
+	 */
 	public SubjectBean findByPk(long pk) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_subject where id = ?");
 		SubjectBean bean = null;
@@ -166,6 +212,13 @@ public class SubjectModel {
 		return bean;
 	}
 
+	/**
+	 * Finds a subject by name.
+	 *
+	 * @param name subject name to find
+	 * @return SubjectBean if found, otherwise null
+	 * @throws ApplicationException if a SQL error occurs while fetching data
+	 */
 	public SubjectBean findByName(String name) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_subject where name = ?");
 		SubjectBean bean = null;
@@ -197,10 +250,25 @@ public class SubjectModel {
 		return bean;
 	}
 
+	/**
+	 * Returns all subjects.
+	 *
+	 * @return List of SubjectBean
+	 * @throws ApplicationException if a SQL error occurs during retrieval
+	 */
 	public List<SubjectBean> list() throws ApplicationException {
 		return search(null, 0, 0);
 	}
 
+	/**
+	 * Searches subjects based on provided filter bean and supports pagination.
+	 *
+	 * @param bean     SubjectBean filter (null means no filter)
+	 * @param pageNo   page number (1-based). If pageSize &gt; 0, pageNo is used to compute offset.
+	 * @param pageSize number of records per page. If 0, returns all matching rows.
+	 * @return List of SubjectBean matching criteria
+	 * @throws ApplicationException if a SQL error occurs during search
+	 */
 	public List<SubjectBean> search(SubjectBean bean, int pageNo, int pageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_subject where 1=1");
 

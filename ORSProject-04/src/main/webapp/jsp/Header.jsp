@@ -30,13 +30,14 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
-	<a href=<%=ORSView.MY_PROFILE_CTL %>><b>My Profile</b></a>
+	<a href=<%=ORSView.MY_PROFILE_CTL%>><b>My Profile</b></a>
 	<b>|</b>
-	<a href=<%=ORSView.CHANGE_PASSWORD_CTL %>><b>Change Password</b></a>
+	<a href=<%=ORSView.CHANGE_PASSWORD_CTL%>><b>Change Password</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.GET_MARKSHEET_CTL%>><b>Get Marksheet</b></a>
 	<b>|</b>
-	<a href=<%=ORSView.MARKSHEET_MERIT_LIST_CTL%>><b>Marksheet Merit List</b></a>
+	<a href=<%=ORSView.MARKSHEET_MERIT_LIST_CTL%>><b>Marksheet
+			Merit List</b></a>
 	<b>|</b>
 	<a href=<%=ORSView.USER_CTL%>><b>Add User</b></a>
 	<b>|</b>
@@ -74,9 +75,9 @@
 	<b>|</b>
 	<a href=<%=ORSView.FACULTY_LIST_CTL%>><b>Faculty List</b></a>
 	<b>|</b>
-	<a href="#" target="blank"><b>Java Doc</b></a>
+	<a href=<%=ORSView.JAVA_DOC%> target="blank"><b>Java Doc</b></a>
 	<b>|</b>
-	<a href="LoginCtl?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
+	<a href="<%=ORSView.LOGIN_CTL%>?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
 	<%
 		} else {
 	%>

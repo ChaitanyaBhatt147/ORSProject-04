@@ -2,90 +2,204 @@ package in.co.rays.proj4.bean;
 
 import java.util.Date;
 
-public class TimetableBean extends BaseBean{
-	private String semester;
-	private String description;
-	private Date examDate;
+/**
+ * TimetableBean represents the timetable information for examinations.
+ * It includes details such as semester, exam date, exam time, course,
+ * subject, and a description. This class extends {@link BaseBean}
+ * to inherit standard audit attributes.
+ *
+ * author Chaitanya Bhatt
+ * @version 1.0
+ */
+public class TimetableBean extends BaseBean {
 
-	public String getSemester() {
-		return semester;
-	}
+    /** Semester for which the timetable is scheduled. */
+    private String semester;
 
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
+    /** Description or additional details about the exam. */
+    private String description;
 
-	public String getDescription() {
-		return description;
-	}
+    /** Date on which the exam will be conducted. */
+    private Date examDate;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /** Time at which the exam will be conducted. */
+    private String examTime;
 
-	public Date getExamDate() {
-		return examDate;
-	}
+    /** ID of the associated course. */
+    private long courseId;
 
-	public void setExamDate(Date examDate) {
-		this.examDate = examDate;
-	}
+    /** Name of the associated course. */
+    private String courseName;
 
-	public String getExamTime() {
-		return examTime;
-	}
+    /** ID of the subject included in the timetable. */
+    private long subjectId;
 
-	public void setExamTime(String examTime) {
-		this.examTime = examTime;
-	}
+    /** Name of the subject included in the timetable. */
+    private String subjectName;
 
-	public long getCourseId() {
-		return courseId;
-	}
+    /**
+     * Gets the semester.
+     *
+     * @return semester
+     */
+    public String getSemester() {
+        return semester;
+    }
 
-	public void setCourseId(long courseId) {
-		this.courseId = courseId;
-	}
+    /**
+     * Sets the semester.
+     *
+     * @param semester the semester
+     */
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    /**
+     * Gets the timetable description.
+     *
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    /**
+     * Sets the timetable description.
+     *
+     * @param description details or notes
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public long getSubjectId() {
-		return subjectId;
-	}
+    /**
+     * Gets the exam date.
+     *
+     * @return examDate
+     */
+    public Date getExamDate() {
+        return examDate;
+    }
 
-	public void setSubjectId(long subjectId) {
-		this.subjectId = subjectId;
-	}
+    /**
+     * Sets the exam date.
+     *
+     * @param examDate the exam date
+     */
+    public void setExamDate(Date examDate) {
+        this.examDate = examDate;
+    }
 
-	public String getSubjectName() {
-		return subjectName;
-	}
+    /**
+     * Gets the exam time.
+     *
+     * @return examTime
+     */
+    public String getExamTime() {
+        return examTime;
+    }
 
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
+    /**
+     * Sets the exam time.
+     *
+     * @param examTime the exam time
+     */
+    public void setExamTime(String examTime) {
+        this.examTime = examTime;
+    }
 
-	private String examTime;
-	private long courseId;
-	private String courseName;
-	private long subjectId;
-	private String subjectName;
+    /**
+     * Gets the associated course ID.
+     *
+     * @return courseId
+     */
+    public long getCourseId() {
+        return courseId;
+    }
 
-	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Sets the associated course ID.
+     *
+     * @param courseId the course ID
+     */
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
+    }
 
-	@Override
-	public String getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Gets the associated course name.
+     *
+     * @return courseName
+     */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /**
+     * Sets the associated course name.
+     *
+     * @param courseName the course name
+     */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /**
+     * Gets the associated subject ID.
+     *
+     * @return subjectId
+     */
+    public long getSubjectId() {
+        return subjectId;
+    }
+
+    /**
+     * Sets the associated subject ID.
+     *
+     * @param subjectId the subject ID
+     */
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    /**
+     * Gets the associated subject name.
+     *
+     * @return subjectName
+     */
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    /**
+     * Sets the associated subject name.
+     *
+     * @param subjectName the subject name
+     */
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    /**
+     * Returns the unique key for this timetable entry.
+     * Typically the ID inherited from BaseBean.
+     *
+     * @return key as String
+     */
+    @Override
+    public String getKey() {
+        return id + "";
+    }
+
+    /**
+     * Returns the display value for this timetable entry.
+     * Typically a combination of semester and subject name.
+     *
+     * @return readable timetable label
+     */
+    @Override
+    public String getValue() {
+        return semester + " - " + subjectName;
+    }
 }

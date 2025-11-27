@@ -2,99 +2,224 @@ package in.co.rays.proj4.bean;
 
 import java.util.Date;
 
-public class UserBean extends BaseBean{
-	private String firstName;
-	private String lastName;
-	private String login;
-	private String password;
-	private String confirmPassword;
-	private Date dob;
-	private String mobileNo;
-	private long roleId;
-	private String gender;
-	
+/**
+ * UserBean represents a user of the application. 
+ * It stores user profile information such as name, login credentials, 
+ * date of birth, mobile number, gender, and assigned role. 
+ * This class extends {@link BaseBean} to include standard audit fields.
+ *
+ * author Chaitanya Bhatt
+ * @version 1.0
+ */
+public class UserBean extends BaseBean {
 
-	public String getFirstName() {
-		return firstName;
-	}
+    /** First name of the user. */
+    private String firstName;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /** Last name of the user. */
+    private String lastName;
 
-	public String getLastName() {
-		return lastName;
-	}
+    /** Login ID or username of the user. */
+    private String login;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /** Password for the user's account. */
+    private String password;
 
-	public String getLogin() {
-		return login;
-	}
+    /** Confirm password field for validation. */
+    private String confirmPassword;
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    /** Date of birth of the user. */
+    private Date dob;
 
-	public String getPassword() {
-		return password;
-	}
+    /** Mobile number of the user. */
+    private String mobileNo;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /** Role ID assigned to the user. */
+    private long roleId;
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    /** Gender of the user. */
+    private String gender;
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    /**
+     * Gets the first name of the user.
+     *
+     * @return firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public Date getDob() {
-		return dob;
-	}
+    /**
+     * Sets the first name of the user.
+     *
+     * @param firstName the user's first name
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+    /**
+     * Gets the last name of the user.
+     *
+     * @return lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getMobileNo() {
-		return mobileNo;
-	}
+    /**
+     * Sets the last name of the user.
+     *
+     * @param lastName the user's last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
+    /**
+     * Gets the login ID or username of the user.
+     *
+     * @return login
+     */
+    public String getLogin() {
+        return login;
+    }
 
-	public long getRoleId() {
-		return roleId;
-	}
+    /**
+     * Sets the login ID or username of the user.
+     *
+     * @param login the user's login name
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	public void setRoleId(long roleId) {
-		this.roleId = roleId;
-	}
+    /**
+     * Gets the user's password.
+     *
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    /**
+     * Sets the user's password.
+     *
+     * @param password the password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    /**
+     * Gets the confirm password value.
+     *
+     * @return confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
-	@Override
-	public String getKey() {
-		return id + "";
-	}
+    /**
+     * Sets the confirm password value.
+     *
+     * @param confirmPassword the confirm password
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
-	@Override
-	public String getValue() {
-		return firstName + " " + lastName;
-	}
+    /**
+     * Gets the user's date of birth.
+     *
+     * @return dob
+     */
+    public Date getDob() {
+        return dob;
+    }
 
-	
+    /**
+     * Sets the user's date of birth.
+     *
+     * @param dob the date of birth
+     */
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    /**
+     * Gets the mobile number of the user.
+     *
+     * @return mobileNo
+     */
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    /**
+     * Sets the mobile number of the user.
+     *
+     * @param mobileNo the mobile number
+     */
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    /**
+     * Gets the role ID assigned to the user.
+     *
+     * @return roleId
+     */
+    public long getRoleId() {
+        return roleId;
+    }
+
+    /**
+     * Sets the role ID assigned to the user.
+     *
+     * @param roleId the role ID
+     */
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+
+    /**
+     * Gets the gender of the user.
+     *
+     * @return gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Sets the gender of the user.
+     *
+     * @param gender the gender
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * Returns the unique key for this user (ID as string).
+     *
+     * @return ID as string
+     */
+    @Override
+    public String getKey() {
+        return id + "";
+    }
+
+    /**
+     * Returns the display value for the user, 
+     * typically their full name.
+     *
+     * @return firstName + " " + lastName
+     */
+    @Override
+    public String getValue() {
+        return firstName + " " + lastName;
+    }
 }

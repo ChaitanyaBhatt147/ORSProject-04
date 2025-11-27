@@ -82,7 +82,7 @@
 					<td style="text-align: center; text-transform: capitalize;"><%=bean.getName()%></td>
 					<td style="text-align: center; text-transform: capitalize;"><%=bean.getDescription()%></td>
 					<td style="text-align: center;"><a
-						href="RoleCtl?id=<%=bean.getId()%>">Edit</a></td>
+						href="<%=ORSView.ROLE_CTL%>?id=<%=bean.getId()%>">Edit</a></td>
 				</tr>
 				<%
 					}

@@ -96,7 +96,7 @@
 					<td style="text-align: center; text-transform: capitalize;"><%=bean.getExamTime()%></td>
 					<td style="text-align: center; text-transform: capitalize;"><%=bean.getDescription()%></td>
 					<td style="text-align: center;"><a
-						href="TimetableCtl?id=<%=bean.getId()%>">Edit</a></td>
+						href="<%=ORSView.TIMETABLE_CTL%>?id=<%=bean.getId()%>">Edit</a></td>
 				</tr>
 				<%
 					}
