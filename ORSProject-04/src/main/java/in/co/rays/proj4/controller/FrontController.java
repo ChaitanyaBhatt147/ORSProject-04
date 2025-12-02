@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 @WebFilter(urlPatterns = { "/doc/*", "/ctl/*" })
 public class FrontController implements Filter {
 
-    /**
+    /** 
      * Initializes the filter. No special initialization is required for this
      * implementation, but the method is provided for completeness and future use.
      *
