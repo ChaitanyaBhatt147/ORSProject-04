@@ -58,10 +58,21 @@ public class JDBCDataSource {
      * This ensures Singleton implementation.
      */
     private JDBCDataSource() {
+
         try {
             cpds = new ComboPooledDataSource();
             cpds.setDriverClass(rb.getString("driver"));
-            cpds.setJdbcUrl(rb.getString("url"));
+
+            String env = System.getProperty("env");
+
+            if ("docker".equals(env)) {
+                cpds.setJdbcUrl(rb.getString("url.docker"));
+            } else {
+                cpds.setJdbcUrl(rb.getString("url.local"));
+            }
+
+           
+            
             cpds.setUser(rb.getString("username"));
             cpds.setPassword(rb.getString("password"));
             cpds.setInitialPoolSize(Integer.parseInt(rb.getString("initialpoolsize")));
