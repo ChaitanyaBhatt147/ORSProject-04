@@ -2,15 +2,7 @@ package in.co.rays.proj4.controller;
 
 /**
  * ORSView defines application-wide constants for JSP view paths and their
- * corresponding controller URL mappings. These constants are used throughout
- * the project to avoid hard-coded strings in controllers and JSPs.
- *
- * <p>
- * - {@code APP_CONTEXT} is the application context root. <br>
- * - {@code PAGE_FOLDER} is the base folder where JSP pages are located. <br>
- * - Other constants map logical view names (JSP paths) and controller URL
- * patterns used by servlets.
- * </p>
+ * corresponding controller URL mappings.
  *
  * @author Chaitanya Bhatt
  * @version 1.0
@@ -101,16 +93,122 @@ public interface ORSView {
 	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";
 	public String FACULTY_LIST_CTL = APP_CONTEXT + "/ctl/FacultyListCtl";
 
-	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
-	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
-
-	public String JAVA_DOC = "/ORSProject-04/doc/index.html";
-
 	public String PATIENT_VIEW = PAGE_FOLDER + "/PatientView.jsp";
 	public String PATIENT_CTL = APP_CONTEXT + "/ctl/PatientCtl";
 
 	public String PATIENT_LIST_VIEW = PAGE_FOLDER + "/PatientListView.jsp";
 	public String PATIENT_LIST_CTL = APP_CONTEXT + "/ctl/PatientListCtl";
 
+	/* ===================== ORDER MODULE ===================== */
 
+	public String ORDER_VIEW = PAGE_FOLDER + "/Order.jsp";
+	public String ORDER_CTL = APP_CONTEXT + "/ctl/OrderCtl";
+
+	public String ORDER_LIST_VIEW = PAGE_FOLDER + "/OrderList.jsp";
+	public String ORDER_LIST_CTL = APP_CONTEXT + "/ctl/OrderListCtl";
+
+	/* ===================== REMINDER MODULE ===================== */
+
+	public String REMINDER_CTL = APP_CONTEXT + "/ctl/ReminderCtl";
+	public String REMINDER_LIST_CTL = APP_CONTEXT + "/ctl/ReminderListCtl";
+	public String REMINDER_VIEW = "/jsp/ReminderView.jsp";
+	public String REMINDER_LIST_VIEW = "/jsp/ReminderListView.jsp";
+
+	/* ========================================================= */
+	
+	public String ISSUE_VIEW = PAGE_FOLDER + "/IssueView.jsp";
+	public String ISSUE_CTL = APP_CONTEXT + "/ctl/IssueCtl";
+
+	public String ISSUE_LIST_VIEW = PAGE_FOLDER + "/IssueListView.jsp";
+	public String ISSUE_LIST_CTL = APP_CONTEXT + "/ctl/IssueListCtl";
+	
+	public String TRAINING_VIEW = PAGE_FOLDER + "/TrainingView.jsp";
+	public String TRAINING_CTL = APP_CONTEXT + "/ctl/TrainingCtl";
+
+	public String TRAINING_LIST_VIEW = PAGE_FOLDER + "/TrainingListView.jsp";
+	public String TRAINING_LIST_CTL = APP_CONTEXT + "/ctl/TrainingListCtl";
+	
+	/* ===================== TRAVEL PACKAGE MODULE ===================== */
+
+	public String TRAVEL_PACKAGE_VIEW = PAGE_FOLDER + "/TravelPackageView.jsp";
+	public String TRAVEL_PACKAGE_CTL = APP_CONTEXT + "/ctl/TravelPackageCtl";
+
+	public String TRAVEL_PACKAGE_LIST_VIEW = PAGE_FOLDER + "/TravelPackageListView.jsp";
+	public String TRAVEL_PACKAGE_LIST_CTL = APP_CONTEXT + "/ctl/TravelPackageListCtl";
+
+	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
+	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
+	/* ===================== SALARY MODULE ===================== */
+
+	public String SALARY_VIEW = PAGE_FOLDER + "/SalaryView.jsp";
+	public String SALARY_CTL = APP_CONTEXT + "/ctl/SalaryCtl";
+
+	public String SALARY_LIST_VIEW = PAGE_FOLDER + "/SalaryListView.jsp";
+	public String SALARY_LIST_CTL = APP_CONTEXT + "/ctl/SalaryListCtl";
+	
+	/* ===================== SEMINAR MODULE ===================== */
+
+	public String SEMINAR_VIEW = PAGE_FOLDER + "/SeminarView.jsp";
+	public String SEMINAR_CTL = APP_CONTEXT + "/ctl/SeminarCtl";
+
+	public String SEMINAR_LIST_VIEW = PAGE_FOLDER + "/SeminarListView.jsp";
+	public String SEMINAR_LIST_CTL = APP_CONTEXT + "/ctl/SeminarListCtl";
+	
+	/* ===================== MEDICINE MODULE ===================== */
+
+	public String MEDICINE_VIEW = PAGE_FOLDER + "/MedicineView.jsp";
+	public String MEDICINE_CTL = APP_CONTEXT + "/ctl/MedicineCtl";
+
+	public String MEDICINE_LIST_VIEW = PAGE_FOLDER + "/MedicineListView.jsp";
+	public String MEDICINE_LIST_CTL = APP_CONTEXT + "/ctl/MedicineListCtl";
+	
+	/* ===================== COMPLAINT TICKET MODULE ===================== */
+
+	public String COMPLAINT_TICKET_VIEW = PAGE_FOLDER + "/ComplaintTicketView.jsp";
+	public String COMPLAINT_TICKET_CTL = APP_CONTEXT + "/ctl/ComplaintTicketCtl";
+
+	public String COMPLAINT_TICKET_LIST_VIEW = PAGE_FOLDER + "/ComplaintTicketListView.jsp";
+	public String COMPLAINT_TICKET_LIST_CTL = APP_CONTEXT + "/ctl/ComplaintTicketListCtl";
+	
+	/* ===================== PAYMENT MODULE ===================== */
+
+	public String PAYMENT_VIEW = PAGE_FOLDER + "/PaymentView.jsp";
+	public String PAYMENT_CTL = APP_CONTEXT + "/ctl/PaymentCtl";
+
+	public String PAYMENT_LIST_VIEW = PAGE_FOLDER + "/PaymentListView.jsp";
+	public String PAYMENT_LIST_CTL = APP_CONTEXT + "/ctl/PaymentListCtl";
+	
+	/* ===================== INTERNET PACKAGE MODULE ===================== */
+
+	public String INTERNET_PACKAGE_VIEW = PAGE_FOLDER + "/InternetPackageView.jsp";
+	public String INTERNET_PACKAGE_CTL = APP_CONTEXT + "/ctl/InternetPackageCtl";
+
+	public String INTERNET_PACKAGE_LIST_VIEW = PAGE_FOLDER + "/InternetPackageListView.jsp";
+	public String INTERNET_PACKAGE_LIST_CTL = APP_CONTEXT + "/ctl/InternetPackageListCtl";
+	
+	/* ===================== PLAN MODULE ===================== */
+
+	public String PLAN_VIEW = PAGE_FOLDER + "/PlanView.jsp";
+	public String PLAN_CTL = APP_CONTEXT + "/ctl/PlanCtl";
+
+	public String PLAN_LIST_VIEW = PAGE_FOLDER + "/PlanListView.jsp";
+	public String PLAN_LIST_CTL = APP_CONTEXT + "/ctl/PlanListCtl";
+	
+	/* ===================== ROOM MODULE ===================== */
+
+	public String ROOM_VIEW = PAGE_FOLDER + "/RoomView.jsp";
+	public String ROOM_CTL = APP_CONTEXT + "/ctl/RoomCtl";
+
+	public String ROOM_LIST_VIEW = PAGE_FOLDER + "/RoomListView.jsp";
+	public String ROOM_LIST_CTL = APP_CONTEXT + "/ctl/RoomListCtl";
+	
+	/* ===================== LANGUAGE LEARNING PROGRESS MODULE ===================== */
+
+	public String LANGUAGE_LEARNING_PROGRESS_VIEW = PAGE_FOLDER + "/LanguageLearningProgressView.jsp";
+	public String LANGUAGE_LEARNING_PROGRESS_CTL = APP_CONTEXT + "/ctl/LanguageLearningProgressCtl";
+
+	public String LANGUAGE_LEARNING_PROGRESS_LIST_VIEW = PAGE_FOLDER + "/LanguageLearningProgressListView.jsp";
+	public String LANGUAGE_LEARNING_PROGRESS_LIST_CTL = APP_CONTEXT + "/ctl/LanguageLearningProgressListCtl";
+
+	public String JAVA_DOC = "/ORSProject-04/doc/index.html";
 }

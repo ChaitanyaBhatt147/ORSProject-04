@@ -1,5 +1,6 @@
 package in.co.rays.proj4.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -83,7 +84,9 @@ public class HTMLUtility {
      * @return HTML string representing the dropdown
      */
     public static String getList(String name, String selectedVal, List list) {
-
+    	if (list == null) {
+			list = new ArrayList	();
+		}
         List<DropdownListBean> dd = (List<DropdownListBean>) list;
 
         StringBuffer sb = new StringBuffer("<select style=\"width: 169px;text-align-last: center;\"; "

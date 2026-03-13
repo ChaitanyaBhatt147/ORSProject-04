@@ -12,10 +12,13 @@ import in.co.rays.proj4.bean.FacultyBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DatabaseServerDownException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 import org.apache.log4j.Logger;
+
+import com.mysql.cj.exceptions.CJCommunicationsException;
 
 /**
  * FacultyModel provides CRUD and search operations for {@link FacultyBean}
@@ -46,7 +49,10 @@ public class FacultyModel {
             rs.close();
             pstmt.close();
             log.debug("Next PK fetched: " + pk);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("DatabaseException in nextPk", e);
             throw new DatabaseException("Exception : Exception in getting PK");
         } finally {
@@ -73,7 +79,10 @@ public class FacultyModel {
             SubjectModel subjectModel = new SubjectModel();
             SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
             bean.setSubjectName(subjectBean != null ? subjectBean.getName() : null);
-        } catch (ApplicationException e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (ApplicationException e) {
             log.error("Exception while resolving related names in add", e);
             throw new ApplicationException("Exception : Exception while resolving related names: " + e.getMessage());
         }
@@ -112,7 +121,10 @@ public class FacultyModel {
             conn.commit();
             pstmt.close();
             log.debug("Faculty added successfully with PK: " + pk);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in add Faculty", e);
             try {
                 if (conn != null) {
@@ -147,7 +159,10 @@ public class FacultyModel {
             SubjectModel subjectModel = new SubjectModel();
             SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
             bean.setSubjectName(subjectBean != null ? subjectBean.getName() : null);
-        } catch (ApplicationException e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (ApplicationException e) {
             log.error("Exception while resolving related names in update", e);
             throw new ApplicationException("Exception : Exception while resolving related names: " + e.getMessage());
         }
@@ -184,7 +199,10 @@ public class FacultyModel {
             conn.commit();
             pstmt.close();
             log.debug("Faculty updated successfully: " + bean.getId());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in update Faculty", e);
             try {
                 if (conn != null) {
@@ -214,7 +232,10 @@ public class FacultyModel {
             conn.commit();
             pstmt.close();
             log.debug("Faculty deleted successfully: " + bean.getId());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in delete Faculty", e);
             try {
                 if (conn != null) {
@@ -265,7 +286,10 @@ public class FacultyModel {
             rs.close();
             pstmt.close();
             log.debug("Faculty found by PK: " + pk + ", Faculty: " + bean);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in findByPk", e);
             throw new ApplicationException("Exception : Exception in getting Faculty by pk");
         } finally {
@@ -309,7 +333,10 @@ public class FacultyModel {
             rs.close();
             pstmt.close();
             log.debug("Faculty found by email: " + email + ", Faculty: " + bean);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in findByEmail", e);
             throw new ApplicationException("Exception : Exception in getting Faculty by Email");
         } finally {
@@ -406,7 +433,10 @@ public class FacultyModel {
             rs.close();
             pstmt.close();
             log.debug("Search completed with result size: " + list.size());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in search Faculty", e);
             throw new ApplicationException("Exception : Exception in search Faculty");
         } finally {

@@ -179,6 +179,24 @@ public class DataUtility {
             return 0;
         }
     }
+    
+    /**
+     * Converts a numeric string to double.
+     *
+     * @param val numeric string
+     * @return parsed double if valid, otherwise 0.0
+     */
+    public static double getDouble(String val) {
+        double value = 0.0;
+        try {
+            if (DataValidator.isNotNull(val)) {
+                value = Double.parseDouble(val);
+            }
+        } catch (Exception e) {
+            value = 0.0;
+        }
+        return value;
+    }
 
     /**
      * A simple test driver for DataUtility methods.

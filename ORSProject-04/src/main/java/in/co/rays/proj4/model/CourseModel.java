@@ -9,10 +9,13 @@ import java.util.List;
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DatabaseServerDownException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 import org.apache.log4j.Logger; // Added import
+
+import com.mysql.cj.exceptions.CJCommunicationsException;
 
 /**
  * CourseModel provides CRUD and search operations for {@link CourseBean}
@@ -48,7 +51,10 @@ public class CourseModel {
             }
             rs.close();
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in getting PK", e);
             throw new DatabaseException("Exception : Exception in getting PK");
         } finally {
@@ -99,7 +105,10 @@ public class CourseModel {
             conn.commit();
             pstmt.close();
             log.info("Course added successfully with pk=" + pk);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in adding Course", e);
             try {
                 if (conn != null) {
@@ -156,7 +165,10 @@ public class CourseModel {
             conn.commit();
             pstmt.close();
             log.info("Course updated successfully with id=" + bean.getId());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in updating Course", e);
             try {
                 if (conn != null) {
@@ -192,7 +204,10 @@ public class CourseModel {
             conn.commit();
             pstmt.close();
             log.info("Course deleted successfully with id=" + bean.getId());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in deleting Course", e);
             try {
                 if (conn != null) {
@@ -241,7 +256,10 @@ public class CourseModel {
             rs.close();
             pstmt.close();
             log.info("Course found by pk=" + pk);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in finding Course by pk", e);
             throw new ApplicationException("Exception : Exception in getting Course by pk");
         } finally {
@@ -282,7 +300,10 @@ public class CourseModel {
             rs.close();
             pstmt.close();
             log.info("Course found by name=" + name);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in finding Course by name", e);
             throw new ApplicationException("Exception : Exception in getting Course by Course Name");
         } finally {
@@ -361,7 +382,10 @@ public class CourseModel {
             rs.close();
             pstmt.close();
             log.info("Course search successful. Records found: " + list.size());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in searching Course", e);
             throw new ApplicationException("Exception : Exception in search Course");
         } finally {

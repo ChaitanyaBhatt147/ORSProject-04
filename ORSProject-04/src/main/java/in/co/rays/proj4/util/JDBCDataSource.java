@@ -4,6 +4,10 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mysql.cj.exceptions.CJCommunicationsException;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
+import in.co.rays.proj4.exception.DatabaseServerDownException;
 
 /**
  * <p>
@@ -126,7 +130,10 @@ public class JDBCDataSource {
             if (conn != null) {
                 conn.close(); // returns connection back to the pool
             }
-        } catch (SQLException e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (SQLException e) {
             e.printStackTrace();
         }
     }

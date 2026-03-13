@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
 import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DatabaseServerDownException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
@@ -54,7 +57,10 @@ public class MarksheetModel {
             }
             rs.close();
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             throw new DatabaseException("Exception in Marksheet getting PK");
         } finally {
             JDBCDataSource.closeConnection(conn);
@@ -85,7 +91,10 @@ public class MarksheetModel {
             } else {
                 bean.setName(null);
             }
-        } catch (ApplicationException e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (ApplicationException e) {
             throw new ApplicationException("Exception : Exception while resolving student name: " + e.getMessage());
         }
 
@@ -115,7 +124,10 @@ public class MarksheetModel {
             pstmt.executeUpdate();
             conn.commit(); // End transaction
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             e.printStackTrace();
             try {
                 if (conn != null) {
@@ -181,7 +193,10 @@ public class MarksheetModel {
             pstmt.executeUpdate();
             conn.commit(); // End transaction
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             try {
                 if (conn != null) {
                     conn.rollback();
@@ -213,7 +228,10 @@ public class MarksheetModel {
             pstmt.executeUpdate();
             conn.commit(); // End transaction
             pstmt.close();
-        } catch (Exception e) {
+        }catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		} catch (Exception e) {
             try {
                 if (conn != null) {
                     conn.rollback();
@@ -303,7 +321,10 @@ public class MarksheetModel {
             }
             rs.close();
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             throw new ApplicationException("Exception in getting marksheet by roll no");
         } finally {
             JDBCDataSource.closeConnection(conn);
@@ -383,7 +404,10 @@ public class MarksheetModel {
             }
             rs.close();
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             throw new ApplicationException("Exception in search marksheet: " + e.getMessage());
         } finally {
             JDBCDataSource.closeConnection(conn);
@@ -429,7 +453,10 @@ public class MarksheetModel {
             }
             rs.close();
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             throw new ApplicationException("Exception in getting merit list of Marksheet");
         } finally {
             JDBCDataSource.closeConnection(conn);

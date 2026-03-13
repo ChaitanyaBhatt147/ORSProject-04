@@ -15,4 +15,12 @@
 		<error-code>404</error-code>
 		<location>/ErrorCtl</location>
 	</error-page>
+	<error-page>
+		<exception-type>com.mysql.cj.exceptions.CJCommunicationsException</exception-type>
+		<location>/ErrorCtl</location>
+	</error-page>
+	<error-page>
+		<exception-type>in.co.rays.project_3.exception.DatabaseServerDownException</exception-type>
+		<location>/ErrorCtl</location>
+	</error-page>
 </web-app>

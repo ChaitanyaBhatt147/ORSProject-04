@@ -8,9 +8,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DatabaseServerDownException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
@@ -50,7 +53,10 @@ public class CollegeModel {
             }
             rs.close();
             pstmt.close();
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in nextPk", e);
             throw new DatabaseException("Exception : Exception in getting PK");
         } finally {
@@ -100,7 +106,10 @@ public class CollegeModel {
             conn.commit();
             pstmt.close();
             log.info("College added successfully: " + bean.getName() + ", ID: " + pk);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             try {
                 conn.rollback();
             } catch (Exception ex) {
@@ -152,7 +161,10 @@ public class CollegeModel {
             conn.commit();
             pstmt.close();
             log.info("College updated successfully: " + bean.getName() + ", ID: " + bean.getId());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             try {
                 conn.rollback();
             } catch (Exception ex) {
@@ -184,7 +196,10 @@ public class CollegeModel {
             conn.commit();
             pstmt.close();
             log.info("College deleted successfully, ID: " + bean.getId());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             try {
                 conn.rollback();
             } catch (Exception ex) {
@@ -233,7 +248,10 @@ public class CollegeModel {
             rs.close();
             pstmt.close();
             log.info("College found by PK: " + pk);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in findByPk()", e);
             throw new ApplicationException("Exception : Exception in getting College by pk");
         } finally {
@@ -278,7 +296,10 @@ public class CollegeModel {
             rs.close();
             pstmt.close();
             log.info("College found by Name: " + name);
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in findByName()", e);
             throw new ApplicationException("Exception : Exception in getting College by Name");
         } finally {
@@ -363,7 +384,10 @@ public class CollegeModel {
             rs.close();
             pstmt.close();
             log.info("College search completed, results found: " + list.size());
-        } catch (Exception e) {
+        } catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseServerDownException("Database Server Down!!!");
+		}catch (Exception e) {
             log.error("Exception in search()", e);
             throw new ApplicationException("Exception : Exception in search college");
         } finally {

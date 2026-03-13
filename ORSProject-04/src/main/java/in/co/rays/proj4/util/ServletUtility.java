@@ -47,6 +47,7 @@ public class ServletUtility {
      */
     public static void forward(String page, HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+    	System.out.println("in forward");
         RequestDispatcher rd = request.getRequestDispatcher(page);
         rd.forward(request, response);
     }
@@ -234,7 +235,10 @@ public class ServletUtility {
      */
     public static void handleException(Exception e, HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        request.setAttribute("exception", e);
-        response.sendRedirect(ORSView.ERROR_CTL);
+    	String lastCtl = (String) request.getAttribute("ORIGINAL_CTL");
+    	request.setAttribute("lastCtl", lastCtl);
+    	request.setAttribute("javax.servlet.error.exception", e);
+    	RequestDispatcher rd = request.getRequestDispatcher(ORSView.ERROR_CTL);
+        rd.forward(request, response);
     }
 }

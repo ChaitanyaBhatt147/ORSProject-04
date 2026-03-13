@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DatabaseServerDownException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.exception.RecordNotFoundException;
 import in.co.rays.proj4.util.EmailBuilder;
@@ -49,6 +52,9 @@ public class UserModel {
 			}
 			rs.close();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			throw new DatabaseException("Exception : Exception in getting PK");
 		} finally {
@@ -98,6 +104,9 @@ public class UserModel {
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -151,6 +160,9 @@ public class UserModel {
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -182,6 +194,9 @@ public class UserModel {
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -231,6 +246,9 @@ public class UserModel {
 			}
 			rs.close();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException("Exception : Exception in getting User by pk");
@@ -277,6 +295,9 @@ public class UserModel {
 			}
 			rs.close();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException("Exception : Exception in getting User by login");
@@ -325,6 +346,9 @@ public class UserModel {
 			}
 			rs.close();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			throw new ApplicationException("Exception : Exception in get roles");
 		} finally {
@@ -411,6 +435,9 @@ public class UserModel {
 			}
 			rs.close();
 			pstmt.close();
+		} catch (CJCommunicationsException e) {
+			e.printStackTrace();
+			throw new DatabaseServerDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			throw new ApplicationException("Exception : Exception in search user");
 		} finally {

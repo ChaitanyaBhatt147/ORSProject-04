@@ -62,14 +62,10 @@ public class UserCtl extends BaseCtl {
         request.setAttribute("map", map);
 
         RoleModel roleModel = new RoleModel();
-        try {
             List<RoleBean> roleList = roleModel.list();
             request.setAttribute("roleList", roleList);
             log.info("Preloaded role list, size=" + roleList.size());
-        } catch (ApplicationException e) {
-            log.error("ApplicationException in preload()", e);
-            e.printStackTrace();
-        }
+        
     }
 
     /**

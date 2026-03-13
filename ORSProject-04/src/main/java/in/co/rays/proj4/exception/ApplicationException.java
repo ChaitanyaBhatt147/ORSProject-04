@@ -14,7 +14,7 @@ package in.co.rays.proj4.exception;
  *
  * @author 
  */
-public class ApplicationException extends Exception {
+public class ApplicationException extends RuntimeException {
 
     /**
      * Creates an ApplicationException instance with a descriptive message.

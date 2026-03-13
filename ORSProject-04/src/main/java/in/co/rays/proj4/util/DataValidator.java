@@ -89,6 +89,26 @@ public class DataValidator {
             return false;
         }
     }
+    
+    /**
+     * Validates whether a string represents a valid double value.
+     *
+     * @param val input string
+     * @return true if double, otherwise false
+     */
+    public static boolean isDouble(String val) {
+
+        if (isNotNull(val)) {
+            try {
+                Double.parseDouble(val);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Validates email address format using a regular expression.

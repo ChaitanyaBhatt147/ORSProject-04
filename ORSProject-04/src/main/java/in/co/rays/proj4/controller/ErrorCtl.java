@@ -14,28 +14,145 @@ import in.co.rays.proj4.util.ServletUtility;
 @WebServlet("/ErrorCtl")
 public class ErrorCtl extends BaseCtl {
 
-	private static final Logger log = Logger.getLogger(ErrorCtl.class);
-
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws IOException, ServletException {
 
-		log.info("ErrorCtl doGet() called");
-		ServletUtility.forward(getView(), request, response);
+		process(request, response);
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws IOException, ServletException {
 
-		log.info("ErrorCtl doPost() called");
-		ServletUtility.forward(getView(), request, response);
+		process(request, response);
 	}
+
+	private void process(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		String lastCtl = (String) request.getAttribute("javax.servlet.error.request_uri");
+		if (lastCtl == null) {
+			lastCtl = (String) request.getAttribute("lastCtl");
+		}
+		String view = getViewFromCtl(lastCtl);
+
+
+		ServletUtility.setErrorMessage("Database server down!!!", request);
+		if (lastCtl != null && lastCtl.contains("ListCtl")) {
+
+		    if (ServletUtility.getList(request) == null) {
+		    	ServletUtility.setList(new java.util.ArrayList(), request);
+		    }
+
+		    request.setAttribute("pageNo", 1);
+		    request.setAttribute("pageSize", 10);
+		    request.setAttribute("nextListSize", 0);
+		}
+
+
+		ServletUtility.forward(view, request, response);
+
+	}
+	
+	private String getViewFromCtl(String ctl) {
+
+		if (ctl == null)
+			return ORSView.ERROR_VIEW;
+
+		// ===== MASTER FORMS =====
+		if (ctl.endsWith(ORSView.USER_CTL))
+			return ORSView.USER_VIEW;
+
+		if (ctl.endsWith(ORSView.ROLE_CTL))
+			return ORSView.ROLE_VIEW;
+
+		if (ctl.endsWith(ORSView.COLLEGE_CTL))
+			return ORSView.COLLEGE_VIEW;
+
+		if (ctl.endsWith(ORSView.STUDENT_CTL))
+			return ORSView.STUDENT_VIEW;
+
+		if (ctl.endsWith(ORSView.FACULTY_CTL))
+			return ORSView.FACULTY_VIEW;
+
+		if (ctl.endsWith(ORSView.COURSE_CTL))
+			return ORSView.COURSE_VIEW;
+
+		if (ctl.endsWith(ORSView.SUBJECT_CTL))
+			return ORSView.SUBJECT_VIEW;
+
+		if (ctl.endsWith(ORSView.TIMETABLE_CTL))
+			return ORSView.TIMETABLE_VIEW;
+
+//		if (ctl.endsWith(ORSView.HOSTEL_CTL))
+//			return ORSView.HOSTEL_VIEW;
+
+		if (ctl.endsWith(ORSView.MARKSHEET_CTL))
+			return ORSView.MARKSHEET_VIEW;
+
+		if (ctl.endsWith(ORSView.GET_MARKSHEET_CTL))
+			return ORSView.GET_MARKSHEET_VIEW;
+
+		if (ctl.endsWith(ORSView.CHANGE_PASSWORD_CTL))
+			return ORSView.CHANGE_PASSWORD_VIEW;
+
+		if (ctl.endsWith(ORSView.MY_PROFILE_CTL))
+			return ORSView.MY_PROFILE_VIEW;
+
+		if (ctl.endsWith(ORSView.FORGET_PASSWORD_CTL))
+			return ORSView.FORGET_PASSWORD_VIEW;
+
+		if (ctl.endsWith(ORSView.LOGIN_CTL))
+			return ORSView.LOGIN_VIEW;
+
+		if (ctl.endsWith(ORSView.WELCOME_CTL))
+			return ORSView.WELCOME_VIEW;
+
+		if (ctl.endsWith(ORSView.USER_REGISTRATION_CTL))
+			return ORSView.USER_REGISTRATION_VIEW;
+
+		// ===== LIST PAGES =====
+		if (ctl.endsWith(ORSView.USER_LIST_CTL))
+			return ORSView.USER_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.ROLE_LIST_CTL))
+			return ORSView.ROLE_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.COLLEGE_LIST_CTL))
+			return ORSView.COLLEGE_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.STUDENT_LIST_CTL))
+			return ORSView.STUDENT_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.FACULTY_LIST_CTL))
+			return ORSView.FACULTY_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.COURSE_LIST_CTL))
+			return ORSView.COURSE_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.SUBJECT_LIST_CTL))
+			return ORSView.SUBJECT_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.TIMETABLE_LIST_CTL))
+			return ORSView.TIMETABLE_LIST_VIEW;
+
+//		if (ctl.endsWith(ORSView.HOSTEL_LIST_CTL))
+//			return ORSView.HOSTEL_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.MARKSHEET_LIST_CTL))
+			return ORSView.MARKSHEET_LIST_VIEW;
+
+		if (ctl.endsWith(ORSView.MARKSHEET_MERIT_LIST_CTL))
+			return ORSView.MARKSHEET_MERIT_LIST_VIEW;
+
+		return ORSView.ERROR_VIEW;
+	}
+
+
+
 
 	@Override
 	protected String getView() {
-		log.debug("ErrorCtl getView() returning ERROR_VIEW");
-		// TODO Auto-generated method stub
-		return ORSView.ERROR_VIEW;
+		return ORSView.LOGIN_VIEW;
 	}
+
 }
